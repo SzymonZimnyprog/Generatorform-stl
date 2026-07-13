@@ -9,7 +9,10 @@ gotowy do slicera.
 
 | Narzędzie | Co robi |
 |---|---|
-| 🧊 **Forma z modelu STL** | Dwuczęściowa forma odlewnicza z otworem wlewowym i zamkami — do silikonu, wosku, mydła, żywicy |
+| 🧊 **Forma dwuczęściowa z STL** | Forma odlewnicza z otworem wlewowym i zamkami — do silikonu, wosku, mydła, żywicy |
+| 🫙 **Wanna do silikonu** | Obudowa drukowana razem z modelem — zalej silikonem i masz elastyczną formę |
+| 🛶 **Forma do laminowania** | Negatyw z wnęką lub kopyto na płycie — laminaty, żywica z włóknem, termoformowanie |
+| 🛁 **Forma do bomb kąpielowych** | Dwie półkuliste prasy z kołnierzami i otworem odpowietrzającym |
 | 🍪 **Wykrawacz do ciastek** | Obrazek/rysunek → foremka tnąca z ostrzem, ścianką i kołnierzem |
 | 🖼️ **Litofania** | Zdjęcie → relief 3D, który pokazuje obraz pod światło (płaski lub łuk) |
 | ✍️ **Napis / szyld 3D** | Tekst → wypukły napis na podstawce (prostokąt lub obrys), z otworami do zawieszenia |
