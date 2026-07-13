@@ -20,6 +20,9 @@ gotowy do slicera.
 | 🔑 **Brelok** | Tekst na zawieszce z prawdziwym otworem na kółko, relief lub grawer |
 | 🌱 **Doniczka z STL** | Dowolny model → doniczka z pustym środkiem i otworami odpływowymi |
 | 🍫 **Tacka** | Parametryczna tacka na lód/czekoladki: półkule, kostki, walce, serca, gwiazdy |
+| 🏺 **Forma na doniczki i wazony** | Forma zewnętrzna + rdzeń na płycie — puste naczynia z betonu, gipsu, jesmonite |
+| 📱 **Tabliczka QR** | Link/tekst jako wypukły kod QR, z uchem do zawieszenia |
+| ✂️ **Dzielenie modelu** | Cięcie STL płaszczyzną na części do druku, z kołkami pasującymi |
 
 Wszystkie napisy obsługują polskie znaki (ĄĆĘŁŃÓŚŹŻ) — 4 wbudowane kroje pisma.
 
@@ -34,6 +37,14 @@ npm run preview   # podgląd builda
 
 Aplikacja jest w pełni statyczna — zawartość `dist/` można hostować gdziekolwiek
 (GitHub Pages, Netlify, dowolny serwer HTTP).
+
+### Publikacja na GitHub Pages
+
+Repozytorium zawiera workflow `.github/workflows/deploy.yml`, który buduje i publikuje
+aplikację przy każdym pushu do `main`/`master`. Żeby go aktywować, wejdź jednorazowo w
+**Settings → Pages** i ustaw **Source: GitHub Actions**. Aplikacja będzie dostępna pod
+`https://<użytkownik>.github.io/<repozytorium>/` (build używa ścieżek względnych, więc
+działa w podkatalogu bez dodatkowej konfiguracji).
 
 ## Testy
 

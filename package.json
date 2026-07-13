@@ -19,6 +19,7 @@
   "dependencies": {
     "clipper-lib": "^6.4.2",
     "opentype.js": "^2.0.0",
+    "qrcode-generator": "^2.0.4",
     "three": "^0.185.1",
     "three-bvh-csg": "^0.0.18",
     "three-mesh-bvh": "^0.9.11"

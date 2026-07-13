@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tabliczka z kodem QR — Generator Form STL</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧊</text></svg>" />
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="logo" href="./">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#f2a33c" stroke-width="1.8" stroke-linejoin="round">
+        <path d="M12 2 3 7v10l9 5 9-5V7l-9-5z"/><path d="M3 7l9 5 9-5M12 12v10"/>
+      </svg>
+      Generator<b>Form</b>·STL
+    </a>
+    <span class="crumb">/ Tabliczka z kodem QR</span>
+    <div class="spacer"></div>
+    <a class="home-link" href="./">← wszystkie narzędzia</a>
+  </header>
+  <main class="tool-layout">
+    <aside id="controls" class="controls"></aside>
+    <section class="viewport">
+      <div id="viewer"></div>
+      <div id="status" class="status"></div>
+    </section>
+  </main>
+  <script type="module" src="/src/tools/qr.js"></script>
+</body>
+</html>
