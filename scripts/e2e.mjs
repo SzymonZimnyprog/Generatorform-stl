@@ -96,7 +96,10 @@ export function makeTestSTLBuffer() {
       const b = at(i + 1, j)
       const c = at(i + 1, j + 1)
       const d = at(i, j + 1)
-      tris.push([a, b, c], [a, c, d])
+      // na biegunach pomijamy zdegenerowane trójkąty (pierścień = punkt);
+      // kolejność wierzchołków tak, by normalne wskazywały NA ZEWNĄTRZ
+      if (i < rings - 1) tris.push([a, c, b])
+      if (i > 0) tris.push([a, d, c])
     }
   }
   const buf = Buffer.alloc(84 + tris.length * 50)

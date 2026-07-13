@@ -1,5 +1,6 @@
 import * as THREE from 'three'
 import { STLLoader } from 'three/addons/loaders/STLLoader.js'
+import { mergeVertices } from 'three/addons/utils/BufferGeometryUtils.js'
 
 /**
  * Eksport binarnego STL. Przyjmuje Mesh/Group lub tablicę obiektów;
@@ -76,7 +77,11 @@ export function downloadSTL(objects, filename = 'model.stl') {
 export async function loadSTLFile(file) {
   const buffer = await file.arrayBuffer()
   const loader = new STLLoader()
-  const geometry = loader.parse(buffer)
+  let geometry = loader.parse(buffer)
+  // STL to „zupa trójkątów" — scalamy zduplikowane wierzchołki, żeby siatka
+  // była spójna (wymóg poprawnej klasyfikacji wnętrza w operacjach CSG)
+  geometry.deleteAttribute('normal')
+  geometry = mergeVertices(geometry, 1e-4)
   geometry.computeVertexNormals()
   return geometry
 }

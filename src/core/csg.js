@@ -1,9 +1,48 @@
 import * as THREE from 'three'
 import { Brush, Evaluator, ADDITION, SUBTRACTION, INTERSECTION } from 'three-bvh-csg'
+import { mergeVertices } from 'three/addons/utils/BufferGeometryUtils.js'
 
 const evaluator = new Evaluator()
 evaluator.attributes = ['position', 'normal']
 evaluator.useGroups = false
+
+/**
+ * Usuwa trójkąty o zerowym polu — psują klasyfikację wnętrza w CSG
+ * (częste w STL-ach z internetu, np. zdegenerowane wachlarze na biegunach).
+ */
+function dropDegenerateTriangles(geometry) {
+  const g = geometry.index ? geometry.toNonIndexed() : geometry
+  const pos = g.getAttribute('position')
+  const a = new THREE.Vector3()
+  const b = new THREE.Vector3()
+  const c = new THREE.Vector3()
+  const ab = new THREE.Vector3()
+  const ac = new THREE.Vector3()
+  const cr = new THREE.Vector3()
+  const keep = []
+  for (let i = 0; i < pos.count; i += 3) {
+    a.fromBufferAttribute(pos, i)
+    b.fromBufferAttribute(pos, i + 1)
+    c.fromBufferAttribute(pos, i + 2)
+    ab.subVectors(b, a)
+    ac.subVectors(c, a)
+    cr.crossVectors(ab, ac)
+    if (cr.lengthSq() > 1e-12) keep.push(i)
+  }
+  if (keep.length * 3 === pos.count) return g
+  const out = new Float32Array(keep.length * 9)
+  let o = 0
+  for (const i of keep) {
+    for (let v = 0; v < 3; v++) {
+      out[o++] = pos.getX(i + v)
+      out[o++] = pos.getY(i + v)
+      out[o++] = pos.getZ(i + v)
+    }
+  }
+  const clean = new THREE.BufferGeometry()
+  clean.setAttribute('position', new THREE.BufferAttribute(out, 3))
+  return clean
+}
 
 function toBrush(input) {
   let geometry
@@ -15,6 +54,7 @@ function toBrush(input) {
   } else {
     throw new Error('CSG: oczekiwano Mesh lub BufferGeometry')
   }
+  geometry = dropDegenerateTriangles(geometry)
   for (const name of Object.keys(geometry.attributes)) {
     if (name !== 'position' && name !== 'normal') geometry.deleteAttribute(name)
   }
@@ -26,7 +66,12 @@ function toBrush(input) {
 
 function run(a, op, b) {
   const result = evaluator.evaluate(toBrush(a), toBrush(b), op)
-  const geometry = result.geometry
+  // sprzątanie po CSG: spawanie wierzchołków (1 µm) usuwa mikro-paski
+  // z retriangulacji szwów, potem wyrzucamy trójkąty o zerowym polu
+  let geometry = result.geometry
+  geometry.deleteAttribute('normal')
+  geometry = mergeVertices(geometry, 1e-3)
+  geometry = dropDegenerateTriangles(geometry.toNonIndexed())
   geometry.computeVertexNormals()
   return geometry
 }
