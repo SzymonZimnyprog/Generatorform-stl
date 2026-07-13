@@ -181,6 +181,7 @@ a:hover { color: var(--accent-2); }
   border-radius: var(--radius);
   background: var(--bg);
   overflow: hidden;
+  flex-shrink: 0; /* sekcje nie mogą się ściskać — panel ma się przewijać */
 }
 .ctl-group summary {
   cursor: pointer;
